@@ -25,6 +25,8 @@ set -e
 
 CPATH='.;lib/hamcrest-core-1.3.jar;lib/junit-4.13.2.jar'
 
+score=0
+
 rm -rf student-submission
 rm -rf grading-area
 
@@ -36,35 +38,38 @@ echo 'Finished cloning'
 # checks if ListExamples.java exists and is in the correct student-submission directory
 if [[ -f student-submission/ListExamples.java ]]
 then
+    score=$((score+25))
     echo 'File exists.'
 else
-    echo 'File does not exist.'
-    #exit
+    echo "File does not exist. Score = $score" 
+    exit
 fi
 
 # checks if ListExamples class exists in ListExamples.java
 find=`grep -c "class ListExamples" student-submission/ListExamples.java`
 if [[ $find == 1 ]]
 then
-    echo 'class ListExamples exists in ListExamples.java'
+    score=$((score+10))
+    echo "class ListExamples exists in ListExamples.java. Score = $score"
 else
-    echo 'class ListExamples does not exist'
+    echo "class ListExamples does not exist. Score = $score"
 fi
 
 # checks if filter exists with correct sigs
 if [[ `grep -c "static List<String> filter(List<String> s, StringChecker sc)" student-submission/ListExamples.java` == 1 ]]
 then
-    echo 'method filter() exists in ListExamples.java'
+    echo "method filter() exists in ListExamples.java. Score = $score"
 else
-    echo 'method filter() does not exist'
+    echo "method filter() does not exist. Score = $score"
 fi
 
 # checks if merge exists with correct sigs
 if [[ `grep -c "static List<String> merge(List<String> list1, List<String> list2)" student-submission/ListExamples.java` == 1 ]]
 then
-    echo 'method merge() exists in ListExamples.java'
+    score=$((score+10))
+    echo "method merge() exists in ListExamples.java. Score = $score"
 else
-    echo 'method merge() does not exist'
+    echo "method merge() does not exist. Score = $score"
 fi
 
 # copies needed files into grading area
@@ -75,7 +80,7 @@ cd grading-area
 pwd
 
 javac -cp $CPATH *.java
-java -cp $CPATH TestListExamples
+java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > testResult.txt
 
 # Draw a picture/take notes on the directory structure that's set up after
 # getting to this point

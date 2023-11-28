@@ -26,13 +26,13 @@ CPATH='.;lib/hamcrest-core-1.3.jar;lib/junit-4.13.2.jar'
 
 score=0
 
-rm -rf student-submission
-rm -rf grading-area
+# rm -rf student-submission
+# rm -rf grading-area
 
-mkdir grading-area
+# mkdir grading-area
 
-git clone $1 student-submission
-echo 'Finished cloning'
+# git clone $1 student-submission
+# echo 'Finished cloning'
 
 # checks if ListExamples.java exists and is in the correct student-submission directory
 if [[ -f student-submission/ListExamples.java ]]
@@ -53,7 +53,7 @@ else
 fi
 
 # checks if filter exists with correct sigs
-if [[ `grep -c 'static List<String> filter(List<String> .*, StringChecker .*)' student-submission/ListExamples.java` == 1 ]]
+if [[ `grep -c 'static List<String> filter(List<String> s, StringChecker sc)' student-submission/ListExamples.java` == 1 ]]
 then
     echo "method filter() exists in ListExamples.java."
 else
@@ -61,7 +61,7 @@ else
 fi
 
 # checks if merge exists with correct sigs
-if [[ `grep -c 'static List<String> merge(List<String> .*, List<String> .*)' student-submission/ListExamples.java` == 1 ]]
+if [[ `grep -c 'static List<String> merge(List<String> list1, List<String> list2)' student-submission/ListExamples.java` == 1 ]]
 then
     echo "method merge() exists in ListExamples.java."
 else

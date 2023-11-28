@@ -53,7 +53,7 @@ else
 fi
 
 # checks if filter exists with correct sigs
-if [[ `grep -c 'static List<String> filter(List<String> .*, StringChecker sc)' student-submission/ListExamples.java` == 1 ]]
+if [[ `grep -c 'static List<String> filter(List<String> .*, StringChecker .*)' student-submission/ListExamples.java` == 1 ]]
 then
     echo "method filter() exists in ListExamples.java."
 else
@@ -61,7 +61,7 @@ else
 fi
 
 # checks if merge exists with correct sigs
-if [[ `grep -c "static List<String> merge(List<String> list1, List<String> list2)" student-submission/ListExamples.java` == 1 ]]
+if [[ `grep -c 'static List<String> merge(List<String> .*, List<String> .*)' student-submission/ListExamples.java` == 1 ]]
 then
     echo "method merge() exists in ListExamples.java."
 else

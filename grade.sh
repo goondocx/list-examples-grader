@@ -78,9 +78,9 @@ pwd
 javac -cp $CPATH *.java
 java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > testResult.txt
 
-scoring=`grep -c "FAILURES" testResult.txt`
+scoring=`grep -c "OK" testResult.txt`
 
-if [[ $scoring == 0 ]]
+if [[ $scoring == 1 ]]
 then
     score=$((score+1))
 fi

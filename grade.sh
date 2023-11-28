@@ -21,7 +21,6 @@
 # Questions
 # 
 
-set -e
 
 CPATH='.;lib/hamcrest-core-1.3.jar;lib/junit-4.13.2.jar'
 
@@ -38,10 +37,9 @@ echo 'Finished cloning'
 # checks if ListExamples.java exists and is in the correct student-submission directory
 if [[ -f student-submission/ListExamples.java ]]
 then
-    score=$((score+25))
     echo 'File exists.'
 else
-    echo "File does not exist. Score = $score" 
+    echo "File does not exist." 
     exit
 fi
 
@@ -49,27 +47,25 @@ fi
 find=`grep -c "class ListExamples" student-submission/ListExamples.java`
 if [[ $find == 1 ]]
 then
-    score=$((score+10))
-    echo "class ListExamples exists in ListExamples.java. Score = $score"
+    echo "class ListExamples exists in ListExamples.java."
 else
-    echo "class ListExamples does not exist. Score = $score"
+    echo "class ListExamples does not exist."
 fi
 
 # checks if filter exists with correct sigs
-if [[ `grep -c "static List<String> filter(List<String> s, StringChecker sc)" student-submission/ListExamples.java` == 1 ]]
+if [[ `grep -c 'static List<String> filter(List<String> .*, StringChecker sc)' student-submission/ListExamples.java` == 1 ]]
 then
-    echo "method filter() exists in ListExamples.java. Score = $score"
+    echo "method filter() exists in ListExamples.java."
 else
-    echo "method filter() does not exist. Score = $score"
+    echo "method filter() does not exist."
 fi
 
 # checks if merge exists with correct sigs
 if [[ `grep -c "static List<String> merge(List<String> list1, List<String> list2)" student-submission/ListExamples.java` == 1 ]]
 then
-    score=$((score+10))
-    echo "method merge() exists in ListExamples.java. Score = $score"
+    echo "method merge() exists in ListExamples.java."
 else
-    echo "method merge() does not exist. Score = $score"
+    echo "method merge() does not exist."
 fi
 
 # copies needed files into grading area
@@ -81,6 +77,15 @@ pwd
 
 javac -cp $CPATH *.java
 java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > testResult.txt
+
+scoring=`grep -c "FAILURES" testResult.txt`
+
+if [[ $scoring == 0 ]]
+then
+    score=$((score+1))
+fi
+
+echo "Score = $score out of 1"
 
 # Draw a picture/take notes on the directory structure that's set up after
 # getting to this point

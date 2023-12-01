@@ -11,7 +11,7 @@ score=0
 # echo 'Finished cloning'
 
 # checks if ListExamples.java exists and is in the correct student-submission directory
-if [[ -f student-submission/ListExamples.java ]]
+if [[ -f grading-area/ListExamples.java ]]
 then
     echo 'File exists.'
 else
@@ -20,7 +20,7 @@ else
 fi
 
 # checks if ListExamples class exists in ListExamples.java
-find=`grep -c "class ListExamples" student-submission/ListExamples.java`
+find=`grep -c "class ListExamples" grading-area/ListExamples.java`
 if [[ $find == 1 ]]
 then
     echo "class ListExamples exists in ListExamples.java."
@@ -29,7 +29,7 @@ else
 fi
 
 # checks if filter exists with correct sigs
-if [[ `grep -c 'static List<String> filter(List<String> s, StringChecker sc)' student-submission/ListExamples.java` == 1 ]]
+if [[ `grep -c 'static List<String> filter(List<String> s, StringChecker sc)' grading-area/ListExamples.java` == 1 ]]
 then
     echo "method filter() exists in ListExamples.java."
 else
@@ -37,7 +37,7 @@ else
 fi
 
 # checks if merge exists with correct sigs
-if [[ `grep -c 'static List<String> merge(List<String> list1, List<String> list2)' student-submission/ListExamples.java` == 1 ]]
+if [[ `grep -c 'static List<String> merge(List<String> list1, List<String> list2)' grading-area/ListExamples.java` == 1 ]]
 then
     echo "method merge() exists in ListExamples.java."
 else
